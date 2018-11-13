@@ -1,0 +1,71 @@
+
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <section>
+        <div class="borda">
+            <legend>Login</legend>
+            
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" class="form-control">
+
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" class="form-control"><br>
+
+                <span id="span"></span>
+                <br>         
+                <br>         
+
+                <input type="button" value="Enviar" id="botao">
+            </div>
+        </div>
+
+    </section>
+    <section>
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Senha</th>
+                </thead>
+                <tbody id="list_login">
+                    
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="js/service.js"></script>
+    <script>
+
+            $(document).ready(function(){
+                $(".borda").css("padding", "30px");
+                
+                $("#span").hide();
+
+                $("#botao").click(function(){
+                    validaLogin();
+                });
+
+            });
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Let's go</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="row justify-content-center">
+        <input type="submit" value="Adicionar usuário" onclick="adicionar_modal()" class="btn btn-outline-primary">
+        <input type="submit" value="Exibir usuários" onclick="exibir()" class="btn btn-outline-info">
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <table class="table">
+                <thead class="thead-dark">
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Email</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody id="table-body">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+<script src="js/serviceQ.js"></script>
+
+
+
+<!-- Modal cadastro -->
+<div class="modal fade bd-example-modal-lg" id="adicionar-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Preencha os dados do usuário</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6" id="form">
+
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input class="form-control" type="text" id="nome">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="s_nome">Sobrenome:</label>
+                            <input class="form-control" type="text" id="s_nome">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cep">Email:</label>
+                            <input class="form-control" type="text" id="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="senha">Senha:</label>
+                            <input class="form-control" type="password" id="senha">
+                        </div>
+                        <input type="submit" value="Adicionar" onclick="adicionar()" class="btn btn-outline-primary">
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal view -->
+<div class="modal" tabindex="-1" role="dialog" id="view-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6">
+                        <table class="table">
+                            <tbody id="table-body-modal">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal set -->
+<div class="modal" tabindex="-1" role="dialog" id="set-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6" id="form">
+
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome"  >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="s_nome">Sobrenome:</label>
+                            <input type="text" id="s_nome" placeholder="Digite seu novo sobrenome">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" placeholder="Digite seu novo email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="senha">Senha:</label>
+                            <input type="password" id="senha" placeholder="Digite sua nova senha">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="edit()">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+
+
+</html>

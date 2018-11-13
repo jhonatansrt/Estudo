@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <title>Cadastro</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="card">
+
+  <div class="row justify-content-center">
+    <div class="col-sm-6" id="form-cadastro">
+      <br>
+      <br>
+      <br>
+
+      <h3>Faça seu cadastro</h3>
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input class="form-control" type="text" placeholder="Digite seu nome" id="nome">
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha:</label>
+        <input class="form-control" type="password" placeholder="Crie sua senha" id="senha">
+      </div>
+
+      <div class="form-group">
+        <label for="cep">CEP:</label>
+        <input class="form-control" type="text" placeholder="Ex: xxxxx-xxx" id="cep" maxlength="9">
+      </div>
+
+      <div class="form-group">
+        <label for="end">Endereço:</label>
+        <input class="form-control" type="text" id="end">
+      </div>
+
+      <input class="btn btn-info" type="submit" value="Concluir cadastro" id="botao">
+      <input class="btn btn-secondary" type="submit" value="Exibir cadastrados" id="botao2">
+      <!--
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+                  </button>
+                -->
+
+      <span id="msg"></span>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <div class="row justify-content-center">
+  <div class="col-sm-6">
+    <table class="table">
+      <thead class="thead-dark">
+        <th>ID</th>
+        <th>User</th>
+        <th>Senha</th>
+        <th colspan="2">End</th>
+      </thead>
+      <tbody id="list_table" >
+
+      </tbody>
+    </table>
+
+  </div>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+  <script src="js/service_cad.js"></script>
+  <script>
+    $(document).ready(function () {
+
+
+      $("#botao").click(function () {
+        validar_cad();
+      })
+      $("#botao2").click(function () {
+        exibir();
+      })
+
+
+      function limpa_formulário_cep() {
+        // Limpa valores do formulário de cep.
+        $("#end").val("");
+        $("#cep").val("");
+
+      }
+      //Quando o campo cep perde o foco.
+      $("#cep").blur(function () {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = $(this).val().replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+          //Expressão regular para validar o CEP.
+          var validacep = /^[0-9]{8}$/;
+
+          //Valida o formato do CEP.
+          if (validacep.test(cep)) {
+            //Preenche os campos com "..." enquanto consulta webservice.
+            $("#end").val("Buscando o endereço");
+            //Consulta o webservice viacep.com.br/
+            $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+              if (!("erro" in dados)) {
+                //Atualiza os campos com os valores da consulta.
+                $("#end").val(dados.logradouro + ", " + dados.bairro + ", " + dados.localidade + ", " + dados.uf)
+              } //end if.
+              else {
+                //CEP pesquisado não foi encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+              }
+            });
+          } //end if.
+          else {
+            //cep é inválido.
+            limpa_formulário_cep();
+            alert("Formato de CEP inválido.");
+          }
+        } //end if.
+        else {
+          //cep sem valor, limpa formulário.
+          limpa_formulário_cep();
+        }
+      });
+    });
+
+
+  </script>
+
+  <!-- Modal excluir -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Atenção</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Você deseja mesmo excluir o cara?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="sim" onclick="excluir()">Sim</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Modal confirmação de cadastro -->
+  <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bem vindo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Cadastrado com sucesso
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal"> Ok</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cadastro invalido-->
+  <div class="modal fade" id="cad_invalido" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Atenção</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Todos os campos são obrigatórios
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Ok</button>
+
+        </div>
+      </div>
+    </div>
+</div>    
+</body>
+
+</html>
