@@ -10,6 +10,13 @@ var email;
 function adicionar_modal() {
     $("#adicionar-modal").modal('show');
 }
+function valDel(id) {
+    $("#del-modal").modal('show');
+    id_del = id; 
+}
+function cad_invalido(){
+    $("#cad_inv").modal('show');
+}
 
 
 function adicionar() {
@@ -19,7 +26,7 @@ function adicionar() {
     email = $("#email").val();
 
 
-    console.log("nome = " + nome + ", sobrenome = " + s_nome + ", senha = " + senha + ", email = " + email);
+   if(nome!="" && senha!="" && s_nome!="" && email!=""){
 
     $.ajax({
         url: serviceQ,
@@ -35,7 +42,9 @@ function adicionar() {
         .fail(function () {
             alert("Ocorreu um erro ao adicionar, por favor tente mais tarde")
         });
-
+    }else{
+        cad_invalido();
+    }
 
 }
 function exibir() {
@@ -54,8 +63,9 @@ function exibir() {
                 retorno += "<td>" + resp[i].s_nome + "</td>";
                 retorno += "<td>" + resp[i].email + "</td>";
                 retorno += "<td> <button type='button' class='btn btn-secondary' onclick='view(" + resp[i].ID + ")'>View</button></td>";
-                retorno += "<td> <button type='button' class='btn btn-warning'onclick='set(" + resp[i].ID+","+ resp[i].nome+","+ resp[i].s_nome+","+ resp[i].email+","+ resp[i].senha + ")'>Edit</button> </td>";
-                retorno += "<td> <button type='button' class='btn btn-danger' onclick='del(" + resp[i].ID + ")'>Delete</button> </td>";
+                retorno += "<td> <button type='button' class='btn btn-warning'onclick='set(" + resp[i].ID+ ")'>Edit</button> </td>";
+                //retorno += "<td> <button type='button' class='btn btn-warning' data-toggle='modal' data-target='#set-modal' data-whatever='@fat'>Edit</button> </td>";
+                retorno += "<td> <button type='button' class='btn btn-danger' onclick='valDel(" + resp[i].ID + ")'>Delete</button> </td>";
                 retorno += "</tr>";
             }
 
@@ -96,27 +106,43 @@ function view(id) {
 
 }
 
-function edit(id){
-    $.ajax({
-        url: serviceQ,
-        type: "POST",
-        dataType: "json",
-        data: {tipo:'edit', id:id}
-    })
-    .done (function(resp){
+function edit(){
 
-    })
-    .fail(function(){
-        console.log('Eresp[i].nome ')
-    })
-}
+    nomen = $("#nome_edit").val();
+    s_nomen = $("#s_nome_edit").val();
+    emailn = $("#email_edit").val();
+    senhan = $("#senha_edit").val();
+   
+    if(nomen!="" && senhan!="" && s_nomen!="" && emailn!=""){
 
-function del(id){
     $.ajax({
         url: serviceQ,
         type: "POST",
         //dataType: "json",
-        data: {tipo:'del', id:id}
+        data: {tipo:'edit', id:id_set, nome:nomen, s_nome:s_nomen, email:emailn, senha:senhan}
+    })
+    .done (function(){
+        $("#nome_edit").val("");
+        $("#s_nome_edit").val("");
+        $("#email_edit").val("");
+        $("#senha_edit").val("");
+        exibir();
+    })
+    .fail(function(){
+        console.log('Erro no edit ')
+    })
+}else{
+    $("#cad_inv").modal('show');    
+}
+}
+
+function del(){
+    $("#del-modal").modal('hide');
+    $.ajax({
+        url: serviceQ,
+        type: "POST",
+        //dataType: "json",
+        data: {tipo:'del', id:id_del}
     })
     .done(function(resp){
        exibir();
@@ -125,7 +151,7 @@ function del(id){
         console.log("Erro no del js");
     })
 }
-function set(id, nome, s_nome, email, senha){
-
+function set(id){
+    id_set = id;
     $("#set-modal").modal("show");
 }

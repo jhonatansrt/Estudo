@@ -43,7 +43,18 @@ function edit(){
     require "conectQ.php";
     extract($_POST);
 
-    $sql_insert = $pdo->prepare("UPDATE usuarios SET nome=, s_nome=, email=, senha=  WHERE ID = $id");
+    
+    //sql_insert = $pdo->prepare("UPDATE usuarios SET nome=$nome, s_nome=$s_nome, email=$email, senha=$senha  WHERE ID = $id");
+    //$sql_insert->execute();
+
+    $sql_insert = $pdo->prepare("UPDATE usuarios SET nome = :nome, s_nome = :s_nome, email = :email, senha = :senha  WHERE ID = :id") ;
+    $sql_insert->execute(array(
+        ":id"=>$id,
+        ":nome"=>$nome,
+        ":s_nome"=>$s_nome,
+        ":email"=>$email,
+        ":  senha"=>$senha
+    ));
 }
 
 function del(){
@@ -68,9 +79,9 @@ switch ($tipo){
     case 'view':
     viewu();
     break;
-    /*case 'edit':
+    case 'edit':
     edit();
-    break;*/
+    break;
     case 'del':
     del();
     break;

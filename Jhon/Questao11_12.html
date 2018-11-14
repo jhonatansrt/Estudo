@@ -38,6 +38,8 @@
             </table>
         </div>
     </div>
+
+   
 </body>
 
 
@@ -144,22 +146,22 @@
 
                         <div class="form-group">
                             <label for="nome">Nome:</label>
-                            <input type="text" id="nome"  >
+                            <input type="text" id="nome_edit" placeholder="Digite seu novo nome">
                         </div>
 
                         <div class="form-group">
                             <label for="s_nome">Sobrenome:</label>
-                            <input type="text" id="s_nome" placeholder="Digite seu novo sobrenome">
+                            <input type="text" id="s_nome_edit" placeholder="Digite seu novo sobrenome">
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="text" id="email" placeholder="Digite seu novo email">
+                            <input type="text" id="email_edit" placeholder="Digite seu novo email">
                         </div>
 
                         <div class="form-group">
                             <label for="senha">Senha:</label>
-                            <input type="password" id="senha" placeholder="Digite sua nova senha">
+                            <input type="password" id="senha_edit" placeholder="Digite sua nova senha">
                         </div>
 
                     </div>
@@ -168,10 +170,86 @@
                     <button type="button" class="btn btn-success" data-dismiss="modal" onclick="edit()">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
-              
+
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal set -->
+
+<!--<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#set-modal' data-whatever='@fat'>Edit</button>
+<div class="modal fade" id="set-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="edit()">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+-->
+<!-- Modal deletar -->
+<div class="modal" tabindex="-1" role="dialog" id="del-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Você deseja mesmo excluir o cara?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="del()">Sim</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="cad_inv">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Todos os campos são obrigatórios
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </html>
