@@ -17,6 +17,12 @@ function valDel(id) {
 function cad_invalido(){
     $("#cad_inv").modal('show');
 }
+function limpa_form(){
+    $("#nome").val("");
+    $("#senha").val("");
+    $("#s_nome").val("");
+    $("#email").val("");
+}
 
 
 function adicionar() {
@@ -35,9 +41,10 @@ function adicionar() {
         data: { tipo: 'adicionar', nome: nome, senha: senha, s_nome: s_nome, email: email }
     })
         .done(function (resp) {
-            alert("cadastrado");
-            $("#adicionar-modal").modal('hide');
+            
+            $("#msg_cad").show();
             exibir();
+            limpa_form();
         })
         .fail(function () {
             alert("Ocorreu um erro ao adicionar, por favor tente mais tarde")
@@ -64,19 +71,47 @@ function exibir() {
                 retorno += "<td>" + resp[i].email + "</td>";
                 retorno += "<td> <button type='button' class='btn btn-secondary' onclick='view(" + resp[i].ID + ")'>View</button></td>";
                 retorno += "<td> <button type='button' class='btn btn-warning'onclick='set(" + resp[i].ID+ ")'>Edit</button> </td>";
-                //retorno += "<td> <button type='button' class='btn btn-warning' data-toggle='modal' data-target='#set-modal' data-whatever='@fat'>Edit</button> </td>";
                 retorno += "<td> <button type='button' class='btn btn-danger' onclick='valDel(" + resp[i].ID + ")'>Delete</button> </td>";
                 retorno += "</tr>";
+
+                $("#gerar").hide();
+                $("#esconder").show();
+                // $("#tabela").DataTable({
+                //     "ajax": resp
+                // });
             }
 
             // retorno += "<td> <input type='submit' value='Excluir' id='botaoExcluir' onclick='chamaModal("+ resp[i].ID +")' </td>";
             $("#table-body").html(retorno);
-
+            
         })
         .fail(function (resp) {
             console.log("Ocorreu um erro na consulta");
         });
 
+}
+
+function exibir2() {
+    $.ajax({
+        url: serviceQ,
+        type: "POST",
+        dataType: "json",
+        data: { tipo: 'exibir' },
+    })
+        .done(function (resp) {
+            var retorno;
+            console.log('DONE');
+            
+            return resp;
+        })
+        .fail(function (resp) {
+            console.log("Ocorreu um erro na consulta");
+        });
+        
+}
+
+function esconder(){
+    $("#table-body").toggle()
 }
 
 function view(id) {

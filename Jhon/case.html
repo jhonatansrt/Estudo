@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>PORTAL DE SERVIÇOS PRODEPA</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+    crossorigin="anonymous">
+
+    <style>
+      input:hover, select:hover, textarea:hover{
+        background-color: #FDF5E6;
+        transition: 1s;
+      }
+    </style>
+</head>
+
+<body>
+  <blockquote class="blockquote text-center">
+  <h3>Solicitação de serviços</h3>
+  </blockquote>
+
+  <div class="container jumbotron">
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <label for="nome_inst" class="font-weight-bold">Nome da instituição</label><span class="text-danger"> *</span>
+      <select name="" id="nome_inst" class="form-control"></select>
+
+
+    </div>
+    <div class="form-group col-md-4">
+      <label for="sigla" class="font-weight-bold">SIGLA</label><span class="text-danger"> *</span>
+      <input id="sigla" placeholder="SIGLA" class="form-control">
+
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="cnpj" class="font-weight-bold">CNPJ MATRIZ</label><span class="text-danger"> *</span>
+      <input id="cnpj" placeholder="Insira o CNPJ" class="form-control">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="municipio" class="font-weight-bold">Município</label><span class="text-danger"> *</span>
+      <select id="municipio" class="form-control">
+        <option value="" disabled selected>Selecione o município</option>
+
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="nome_sol" class="font-weight-bold">Nome Solicitante</label><span class="text-danger"> *</span>
+      <input id="nome_sol" placeholder="NOME SOLICITANTE" class="form-control">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="email" class="font-weight-bold">Email</label><span class="text-danger"> *</span>
+      <input id="email" placeholder="Email" class="form-control">
+    </div>
+  </div>
+
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="tel" class="font-weight-bold">Telefone</label><span class="text-danger"> *</span>
+      <input id="tel" placeholder="Telefone" class="form-control">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="cel" class="font-weight-bold">Celular</label>
+      <input id="cel" placeholder="Celular" class="form-control">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="assunto" class="font-weight-bold">Assunto</label><span class="text-danger"> *</span>
+    <select name="" id="assunto" class="form-control">
+      <option value="" disabled selected>Selecione o assunto</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="msg" class="font-weight-bold">Mensagem</label><span class="text-danger"> *</span>
+    <textarea id="msg" placeholder="Insira a mensagem" class="form-control"></textarea>
+
+  </div>
+</div>
+
+
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

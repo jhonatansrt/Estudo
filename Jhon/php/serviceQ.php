@@ -53,7 +53,7 @@ function edit(){
         ":nome"=>$nome,
         ":s_nome"=>$s_nome,
         ":email"=>$email,
-        ":  senha"=>$senha
+        ":senha"=>$senha
     ));
 }
 
