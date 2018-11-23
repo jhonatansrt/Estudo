@@ -12,12 +12,12 @@ function adicionar_modal() {
 }
 function valDel(id) {
     $("#del-modal").modal('show');
-    id_del = id; 
+    id_del = id;
 }
-function cad_invalido(){
+function cad_invalido() {
     $("#cad_inv").modal('show');
 }
-function limpa_form(){
+function limpa_form() {
     $("#nome").val("");
     $("#senha").val("");
     $("#s_nome").val("");
@@ -32,24 +32,24 @@ function adicionar() {
     email = $("#email").val();
 
 
-   if(nome!="" && senha!="" && s_nome!="" && email!=""){
+    if (nome != "" && senha != "" && s_nome != "" && email != "") {
 
-    $.ajax({
-        url: serviceQ,
-        type: "POST",
-        //datatype: ''
-        data: { tipo: 'adicionar', nome: nome, senha: senha, s_nome: s_nome, email: email }
-    })
-        .done(function (resp) {
-            
-            $("#msg_cad").show();
-            exibir();
-            limpa_form();
+        $.ajax({
+            url: serviceQ,
+            type: "POST",
+            //datatype: ''
+            data: { tipo: 'adicionar', nome: nome, senha: senha, s_nome: s_nome, email: email }
         })
-        .fail(function () {
-            alert("Ocorreu um erro ao adicionar, por favor tente mais tarde")
-        });
-    }else{
+            .done(function (resp) {
+
+                $("#msg_cad").show();
+                exibir();
+                limpa_form();
+            })
+            .fail(function () {
+                alert("Ocorreu um erro ao adicionar, por favor tente mais tarde")
+            });
+    } else {
         cad_invalido();
     }
 
@@ -69,9 +69,9 @@ function exibir() {
                 retorno += "<td>" + resp[i].nome + "</td>";
                 retorno += "<td>" + resp[i].s_nome + "</td>";
                 retorno += "<td>" + resp[i].email + "</td>";
-                retorno += "<td> <button type='button' class='btn btn-secondary' onclick='view(" + resp[i].ID + ")'>View</button></td>";
-                retorno += "<td> <button type='button' class='btn btn-warning'onclick='set(" + resp[i].ID+ ")'>Edit</button> </td>";
-                retorno += "<td> <button type='button' class='btn btn-danger' onclick='valDel(" + resp[i].ID + ")'>Delete</button> </td>";
+               // retorno += "<td> <button type='button' class='btn btn-secondary' onclick='view(" + resp[i].ID + ")'>View</button></td>";
+               // retorno += "<td> <button type='button' class='btn btn-warning'onclick='set(" + resp[i].ID + ")'>Edit</button> </td>";
+                //retorno += "<td> <button type='button' class='btn btn-danger' onclick='valDel(" + resp[i].ID + ")'>Delete</button> </td>";
                 retorno += "</tr>";
 
                 $("#gerar").hide();
@@ -83,7 +83,37 @@ function exibir() {
 
             // retorno += "<td> <input type='submit' value='Excluir' id='botaoExcluir' onclick='chamaModal("+ resp[i].ID +")' </td>";
             $("#table-body").html(retorno);
-            
+            $("#tabela").DataTable({
+                "pagingType": "full_numbers",
+                        "ordering": false,
+                        dom: 'Bfrtip',
+                        buttons: ['print', 'pdf'],
+                        language: {
+                            search: "Pesquisa",
+                            searchPlaceholder: "Informe sua consulta",
+                            lengthMenu: "Mostrar _MENU_ Registros por página",
+                            info: "_START_ de _TOTAL_",
+                            paginate: {
+                                first: "Primeiro",
+                                previous: "Anterior",
+                                next: "Próximo",
+                                last: "Último"
+                            },
+                            buttons: {
+                                print: 'Imprimir',
+                                pdf: 'Gerar PDF'
+                            }
+                        },
+
+                "searching": true,
+                "aaData": resp,
+                "aoColumns": [
+                    { "data": "nome" },
+                    { "data": "s_nome" },
+                    { "data": "email" }
+
+                ]
+            });
         })
         .fail(function (resp) {
             console.log("Ocorreu um erro na consulta");
@@ -101,16 +131,16 @@ function exibir2() {
         .done(function (resp) {
             var retorno;
             console.log('DONE');
-            
+
             return resp;
         })
         .fail(function (resp) {
             console.log("Ocorreu um erro na consulta");
         });
-        
+
 }
 
-function esconder(){
+function esconder() {
     $("#table-body").toggle()
 }
 
@@ -125,11 +155,11 @@ function view(id) {
         .done(function (resp) {
             var retorno;
 
-            for(var i=0;i<resp.length;i++){
+            for (var i = 0; i < resp.length; i++) {
                 retorno += "<tr>";
-                retorno += "<td>"+resp[i].nome+"</td>";
-                retorno += "<td>"+resp[i].s_nome+"</td>";
-                retorno += "<td>"+resp[i].email+"</td>";
+                retorno += "<td>" + resp[i].nome + "</td>";
+                retorno += "<td>" + resp[i].s_nome + "</td>";
+                retorno += "<td>" + resp[i].email + "</td>";
                 retorno += "</tr>";
             }
             $("#table-body-modal").html(retorno);
@@ -141,52 +171,52 @@ function view(id) {
 
 }
 
-function edit(){
+function edit() {
 
     nomen = $("#nome_edit").val();
     s_nomen = $("#s_nome_edit").val();
     emailn = $("#email_edit").val();
     senhan = $("#senha_edit").val();
-   
-    if(nomen!="" && senhan!="" && s_nomen!="" && emailn!=""){
 
-    $.ajax({
-        url: serviceQ,
-        type: "POST",
-        //dataType: "json",
-        data: {tipo:'edit', id:id_set, nome:nomen, s_nome:s_nomen, email:emailn, senha:senhan}
-    })
-    .done (function(){
-        $("#nome_edit").val("");
-        $("#s_nome_edit").val("");
-        $("#email_edit").val("");
-        $("#senha_edit").val("");
-        exibir();
-    })
-    .fail(function(){
-        console.log('Erro no edit ')
-    })
-}else{
-    $("#cad_inv").modal('show');    
-}
+    if (nomen != "" && senhan != "" && s_nomen != "" && emailn != "") {
+
+        $.ajax({
+            url: serviceQ,
+            type: "POST",
+            //dataType: "json",
+            data: { tipo: 'edit', id: id_set, nome: nomen, s_nome: s_nomen, email: emailn, senha: senhan }
+        })
+            .done(function () {
+                $("#nome_edit").val("");
+                $("#s_nome_edit").val("");
+                $("#email_edit").val("");
+                $("#senha_edit").val("");
+                exibir();
+            })
+            .fail(function () {
+                console.log('Erro no edit ')
+            })
+    } else {
+        $("#cad_inv").modal('show');
+    }
 }
 
-function del(){
+function del() {
     $("#del-modal").modal('hide');
     $.ajax({
         url: serviceQ,
         type: "POST",
         //dataType: "json",
-        data: {tipo:'del', id:id_del}
+        data: { tipo: 'del', id: id_del }
     })
-    .done(function(resp){
-       exibir();
-    })
-    .fail(function(){
-        console.log("Erro no del js");
-    })
+        .done(function (resp) {
+            exibir();
+        })
+        .fail(function () {
+            console.log("Erro no del js");
+        })
 }
-function set(id){
+function set(id) {
     id_set = id;
     $("#set-modal").modal("show");
 }
