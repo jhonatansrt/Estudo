@@ -2,14 +2,20 @@
 require "conect_desafio.php";
 extract($_POST);
 
-if ($tipo == "logar") {
+if ($funcao == "logar") {
     logar();
 }
-if ($tipo == "cadastrar") {
+if ($funcao == "cadastrar") {
     cadastrar();
 }
-if ($tipo == "cadastar_usuario"){
+if ($funcao == "cadastar_usuario"){
     cadastrar_usuario();
+}
+if ($funcao == 'cadastrar_cliente'){
+    cadastrar_cliente();
+}
+if ($funcao == 'cadastrar_fornecedor'){
+    cadastrar_fornecedor();
 }
 // ========================================================================================================================
 
@@ -19,44 +25,37 @@ function logar()
     require "conect_desafio.php";
     extract($_POST);
 
-    $sql_get = $pdo->prepare("select * from usuarios where usuario = '{$usuario}' and senha = '{$senha}'");
+    $sql_get = $pdo->prepare("select * from usuarios where nome = '{$nome}' and senha = '{$senha}'");
     $sql_get->execute();
     $resp = $sql_get->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($resp);
 
 }
 
-function cadastrar()
-{
+function cadastrar_cliente(){
     require "conect_desafio.php";
     extract($_POST);
 
-    if ($tipo_checkbox == "usuario") {
-        
-    } else
-
-        if ($tipo_checkbox == "cliente") {
-
-    } else
-
-        if ($tipo_checkbox == "fornecedor") {
-
-    } else {
-        echo ("Tipo inexestente");
-    }
+    $sql_get = $pdo->prepare("insert into usuarios(nome, senha, cpf, tipo) values(:nome, :senha, :cpf, :tipo)");
+    $sql_get->execute(array(
+        ':nome' => $nome,
+        ':senha' => $senha,
+        ':cpf' => $cpf,
+        ':tipo' =>  $tipo 
+    ));
 }
 
-function cadastrar_usuario(){
+function cadastrar_fornecedor(){
     require "conect_desafio.php";
     extract($_POST);
-   
 
-    $sql_get = $pdo->prepare("insert into usuarios (usuario, senha) values(:usuario, :senha)");
+    $sql_get = $pdo->prepare("insert into usuarios(nome, senha, cnpj, tipo) values(:nome, :senha, :cnpj, :tipo)");
     $sql_get->execute(array(
-        ':usuario' => $usuario ,
-        ':senha' =>$senha
-        ));
-
+        ':nome' => $nome,
+        ':senha' => $senha,
+        ':cnpj' => $cnpj,
+        ':tipo' => $tipo
+    ));
 }
 
 
