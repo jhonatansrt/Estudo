@@ -17,6 +17,12 @@ if ($funcao == 'cadastrar_cliente'){
 if ($funcao == 'cadastrar_fornecedor'){
     cadastrar_fornecedor();
 }
+if ($funcao == 'cadastro_produto'){
+    cadastro_produto();
+}
+if ($funcao == 'preenchertabela'){
+    preenchertabela();
+}
 // ========================================================================================================================
 
 
@@ -58,5 +64,26 @@ function cadastrar_fornecedor(){
     ));
 }
 
+function cadastro_produto(){
+    require 'conect_desafio.php';
+    extract($_POST);
+
+    $sql_get = $pdo->prepare("insert into produtos (nome, categoria) values (:nome, :categoria)");
+    $sql_get->execute(array(
+        ':nome'=>$nome,
+        ':categoria'=>$categoria,
+
+    ));
+}
+function preenchertabela(){
+    require 'conect_desafio.php';
+    extract($_POST);
+
+    $sql_get = $pdo->prepare("select * from produtos");
+    $sql_get->execute();
+    $resp = $sql_get->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($resp);
+
+}
 
 ?>

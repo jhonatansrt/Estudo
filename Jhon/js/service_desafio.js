@@ -19,7 +19,15 @@ function logar() {
             if (resp.length == 0) {
                 alert("usuario ou senha incorreta");
             } else {
-                alert("LOGADO")
+                alert("LOGADO");
+
+                for (var i = 0; i < resp.length; i++) {
+                    console.log(resp[i].tipo);
+                    if (resp[i].tipo == 'fornecedor') {
+                        window.location.replace("http://localhost/Jhon/cadastro_produtos.html");
+
+                    }
+                }
             }
 
 
@@ -43,7 +51,11 @@ function tipoCad() {
 
         if (tipo_checkbox == "fornecedor") {
             $("#modal_cadastro_fornecedor").modal('show');
-        }
+        } else
+
+            if (tipo_checkbox == "cadastro_produto") {
+                cadastro_produto();
+            }
 
 
 }
@@ -96,4 +108,54 @@ function cadastrar_fornecedor() {
         .fail(function () {
             alert("Erro ao cadastrar cliente");
         })
+}
+
+function cadastro_produto() {
+    var nome = $("#nome_produto").val();
+    var categoria = categoria_produto;
+
+    $.ajax({
+        url:pagina,
+        type:"POST",
+        data:{funcao:'cadastro_produto', nome, categoria}
+    })
+    .done(function(){
+        alert ("Produto cadastrado")
+        $("#modal_cadastro_produtos").modal('hide')
+
+        preenchertabela();
+    })
+    .fail(function(){
+        alert("Falha ao cadastrar tente mais tarde")
+    })
+}
+
+function preenchertabela(){
+    $.ajax({
+        url:pagina,
+        type:"POST",
+        data:{funcao:'preenchertabela'},
+        dataType: 'json'
+    })
+    .done(function(resp){
+        var retorno;
+        retorno += "<tr>";
+        retorno += "<th>Id</th>"
+        retorno += "<th>Nome</th>"
+        retorno += "<th>Senha</th>"
+        retorno += "</tr>";
+       
+        
+        for(var i = 0; i < resp.length; i++){
+            retorno += "<tr>"
+            retorno += "<td>"+resp[i].id+"</td>"
+            retorno += "<td>"+resp[i].nome+"</td>"
+            retorno += "<td>"+resp[i].categoria+"</td>"
+            retorno += "</tr>"
+        }
+        $("#tabela").html(retorno);
+    })
+    .fail(function(){
+        alert("Erro ao tabelar")
+    })
 }

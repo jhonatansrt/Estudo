@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+</head>
+
+<!-- Head -->
+
+<body class="bg-dark">
+    <blockquote class="blockquote text-center text-white bg-secondary p-3">
+        <h2>Jhon Black Free</h2>
+        <h4>Fornecedor</h4>
+    </blockquote>
+
+    <!-- Card inicial ================================================================================== -->
+    <div class="row justify-content-center">
+        <div class="jumbotron w-25 p-5 ">
+            <div class="row justify-content-center">
+                <div class="card text-center" style="width: 18rem;">
+                    <div class="card-header bg-info text-white">
+                        Selecione a opção desejada
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><input type="submit" class="btn btn-link text-info" value="Cadastrar produtos"
+                                data-toggle="modal" data-target="#modal_cadastro_produtos"></li>
+                        <li class="list-group-item"><input type="submit" class="btn btn-link text-info" value="Relatórios"></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cadastro de produtos ================================================================================== -->
+    <div class="modal" tabindex="-1" role="dialog" id="modal_cadastro_produtos">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Preencha os campos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nome_produto">Nome do produto</label>
+                        <input type="text" id="nome_produto" class="form-control">
+                    </div>
+
+
+                    <label>Selecione a categoria</label><br>
+
+                    <input type="checkbox" id="fitness" value="fitness">
+                    <label for="fitness">Fitness </label>
+
+                    <input type="checkbox" id="Cama_mesa_e_banho" value="Cama mesa e banho">
+                    <label for="Cama_mesa_e_banho">Cama mesa e banho </label>
+
+                    <input type="checkbox" id="informatica" value="informatica">
+                    <label for="informatica">Informatica </label>
+
+                    <input type="checkbox" id="esportes" value="esportes">
+                    <label for="esportes">Esportes </label>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="botao_cadastrar_produto" class="btn btn-primary" onclick="tipoCad(tipo_checkbox)"
+                            disabled>Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <script src="js/service_desafio.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <table id="tabela" class="table table-dark">
+
+    </table>
+</body>
+
+
+<script>
+    //Função para validar apenas 1 checkbox e coletar o tipo de cadastro selecionado pelo usuario ======================================================
+    $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").click(function () {
+
+         tipo_checkbox = "cadastro_produto"
+        if ($("#fitness").prop("checked") == true) {
+            $("#Cama_mesa_e_banho").attr('disabled', true);
+            $("#informatica").attr('disabled', true);
+            $("#esportes").attr('disabled', true);
+            categoria_produto = $("#fitness").val();
+            $("#botao_cadastrar_produto").attr('disabled', false);
+        }else
+        if ($("#Cama_mesa_e_banho").prop("checked") == true) {
+            $("#fitness").prop('disabled', true);
+            $("#informatica").prop('disabled', true);
+            $("#esportes").prop('disabled', true);
+            categoria_produto = $("#Cama_mesa_e_banho").val();
+            $("#botao_cadastrar_produto").attr('disabled', false);
+
+        }else 
+        if ($("#informatica").prop("checked") == true) {
+            $("#fitness").prop('disabled', true);
+            $("#Cama_mesa_e_banho").prop('disabled', true);
+            $("#esportes").prop('disabled', true);
+            categoria_produto = $("#informatica").val();
+            $("#botao_cadastrar_produto").attr('disabled', false);
+        }else
+        if ($("#esportes").prop("checked") == true) {
+            $("#fitness").prop('disabled', true);
+            $("#Cama_mesa_e_banho").prop('disabled', true);
+            $("#informatica").prop('disabled', true);
+            categoria_produto = $("#esportes").val();
+            $("#botao_cadastrar_produto").attr('disabled', false);
+        }
+
+
+        else {
+            $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").attr('disabled', false);
+            $("#botao_cadastrar_produto").attr('disabled', true);
+        }
+
+    });
+</script>
+
+
+
+</html>
