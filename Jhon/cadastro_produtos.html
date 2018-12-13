@@ -8,8 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .jumbotron{
+            width:40%;
+        }
+    </style>
 </head>
 
 <!-- Head -->
@@ -21,23 +25,30 @@
     </blockquote>
 
     <!-- Card inicial ================================================================================== -->
-    <div class="row justify-content-center">
-        <div class="jumbotron w-25 p-5 ">
-            <div class="row justify-content-center">
-                <div class="card text-center" style="width: 18rem;">
-                    <div class="card-header bg-info text-white">
-                        Selecione a opção desejada
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><input type="submit" class="btn btn-link text-info" value="Cadastrar produtos"
-                                data-toggle="modal" data-target="#modal_cadastro_produtos"></li>
-                        <li class="list-group-item"><input type="submit" class="btn btn-link text-info" value="Relatórios"></li>
 
-                    </ul>
-                </div>
+
+    <div class="row justify-content-center">
+        <div class="card text-center col-sm-5" style="width: 18rem;">
+            <div class="card-header bg-info text-white">
+                Selecione a opção desejada
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><input type="submit" class="btn btn-link text-info" value="Cadastrar produtos"
+                        data-toggle="modal" data-target="#modal_cadastro_produtos">
+                    <input type="submit" class="btn btn-link text-info" value="Relatórios">
+                    <input type="submit" id="btn-gerarTabela" class="btn btn-link text-info" onclick="mostrarTabela()"
+                        value="Exibir/Esconder produtos cadastrados">
+                    <input type="submit" id="btn-sair" class="btn btn-link text-danger" onclick="sair()" value="Sair"></li>
+
+
+
+
+            </ul>
         </div>
     </div>
+    <br><br><br>
+
+
 
     <!-- Modal cadastro de produtos ================================================================================== -->
     <div class="modal" tabindex="-1" role="dialog" id="modal_cadastro_produtos">
@@ -83,62 +94,74 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
 
     <script src="js/service_desafio.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
-    <table id="tabela" class="table table-dark">
 
-    </table>
+
+    <!-- Tabela de dados dos produtos ============================================= -->
+
+    <div class="row justify-content-center text-center">
+        <div class="col-5">
+            <table id="tabela" class="table table-dark ">
+
+            </table>
+        </div>
+    </div>
 </body>
 
 
 <script>
-    //Função para validar apenas 1 checkbox e coletar o tipo de cadastro selecionado pelo usuario ======================================================
-    $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").click(function () {
+    $(document).ready(function () {
+        //Função para validar apenas 1 checkbox e coletar o tipo de cadastro selecionado pelo usuario ======================================================
+        $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").click(function () {
 
-         tipo_checkbox = "cadastro_produto"
-        if ($("#fitness").prop("checked") == true) {
-            $("#Cama_mesa_e_banho").attr('disabled', true);
-            $("#informatica").attr('disabled', true);
-            $("#esportes").attr('disabled', true);
-            categoria_produto = $("#fitness").val();
-            $("#botao_cadastrar_produto").attr('disabled', false);
-        }else
-        if ($("#Cama_mesa_e_banho").prop("checked") == true) {
-            $("#fitness").prop('disabled', true);
-            $("#informatica").prop('disabled', true);
-            $("#esportes").prop('disabled', true);
-            categoria_produto = $("#Cama_mesa_e_banho").val();
-            $("#botao_cadastrar_produto").attr('disabled', false);
+            tipo_checkbox = "cadastro_produto"
+            if ($("#fitness").prop("checked") == true) {
+                $("#Cama_mesa_e_banho").attr('disabled', true);
+                $("#informatica").attr('disabled', true);
+                $("#esportes").attr('disabled', true);
+                categoria_produto = $("#fitness").val();
+                $("#botao_cadastrar_produto").attr('disabled', false);
+            } else
+                if ($("#Cama_mesa_e_banho").prop("checked") == true) {
+                    $("#fitness").prop('disabled', true);
+                    $("#informatica").prop('disabled', true);
+                    $("#esportes").prop('disabled', true);
+                    categoria_produto = $("#Cama_mesa_e_banho").val();
+                    $("#botao_cadastrar_produto").attr('disabled', false);
 
-        }else 
-        if ($("#informatica").prop("checked") == true) {
-            $("#fitness").prop('disabled', true);
-            $("#Cama_mesa_e_banho").prop('disabled', true);
-            $("#esportes").prop('disabled', true);
-            categoria_produto = $("#informatica").val();
-            $("#botao_cadastrar_produto").attr('disabled', false);
-        }else
-        if ($("#esportes").prop("checked") == true) {
-            $("#fitness").prop('disabled', true);
-            $("#Cama_mesa_e_banho").prop('disabled', true);
-            $("#informatica").prop('disabled', true);
-            categoria_produto = $("#esportes").val();
-            $("#botao_cadastrar_produto").attr('disabled', false);
-        }
+                } else
+                    if ($("#informatica").prop("checked") == true) {
+                        $("#fitness").prop('disabled', true);
+                        $("#Cama_mesa_e_banho").prop('disabled', true);
+                        $("#esportes").prop('disabled', true);
+                        categoria_produto = $("#informatica").val();
+                        $("#botao_cadastrar_produto").attr('disabled', false);
+                    } else
+                        if ($("#esportes").prop("checked") == true) {
+                            $("#fitness").prop('disabled', true);
+                            $("#Cama_mesa_e_banho").prop('disabled', true);
+                            $("#informatica").prop('disabled', true);
+                            categoria_produto = $("#esportes").val();
+                            $("#botao_cadastrar_produto").attr('disabled', false);
+                        }
 
 
-        else {
-            $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").attr('disabled', false);
-            $("#botao_cadastrar_produto").attr('disabled', true);
-        }
+                        else {
+                            $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").attr('disabled', false);
+                            $("#botao_cadastrar_produto").attr('disabled', true);
+                        }
+
+        });
+
 
     });
+
 </script>
 
 

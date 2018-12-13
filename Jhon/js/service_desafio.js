@@ -115,47 +115,67 @@ function cadastro_produto() {
     var categoria = categoria_produto;
 
     $.ajax({
-        url:pagina,
-        type:"POST",
-        data:{funcao:'cadastro_produto', nome, categoria}
+        url: pagina,
+        type: "POST",
+        data: { funcao: 'cadastro_produto', nome, categoria }
     })
-    .done(function(){
-        alert ("Produto cadastrado")
-        $("#modal_cadastro_produtos").modal('hide')
+        .done(function () {
+            alert("Produto cadastrado")
+            $("#modal_cadastro_produtos").modal('hide')
 
-        preenchertabela();
-    })
-    .fail(function(){
-        alert("Falha ao cadastrar tente mais tarde")
-    })
+            preenchertabela();
+        })
+        .fail(function () {
+            alert("Falha ao cadastrar tente mais tarde")
+        })
 }
 
-function preenchertabela(){
+function preenchertabela() {
     $.ajax({
-        url:pagina,
-        type:"POST",
-        data:{funcao:'preenchertabela'},
+        url: pagina,
+        type: "POST",
+        data: { funcao: 'preenchertabela' },
         dataType: 'json'
     })
-    .done(function(resp){
-        var retorno;
-        retorno += "<tr>";
-        retorno += "<th>Id</th>"
-        retorno += "<th>Nome</th>"
-        retorno += "<th>Senha</th>"
-        retorno += "</tr>";
-       
-        
-        for(var i = 0; i < resp.length; i++){
-            retorno += "<tr>"
-            retorno += "<td>"+resp[i].id+"</td>"
-            retorno += "<td>"+resp[i].nome+"</td>"
-            retorno += "<td>"+resp[i].categoria+"</td>"
-            retorno += "</tr>"
-        }
-        $("#tabela").html(retorno);
-    })
-    .fail(function(){
-        alert("Erro ao tabelar")
-    })
+        .done(function (resp) {
+            var retorno;
+
+            retorno += "<thead class='bg-info'>";
+            retorno += "<th>Id</th>"
+            retorno += "<th>Nome</th>"
+            retorno += "<th>Categoria</th>"
+            retorno += "</thead>"
+
+
+
+            for (var i = 0; i < resp.length; i++) {
+                retorno += "<tr>"
+                retorno += "<td>" + resp[i].id + "</td>"
+                retorno += "<td>" + resp[i].nome + "</td>"
+                retorno += "<td>" + resp[i].categoria + "</td>"
+                retorno += "</tr>"
+            }
+            // retorno += "<tr>"
+            // retorno += "<td colspan='3'> <input type='submit' value='Ocultar tabela' class='btn btn-info' onclick= 'esconderTabela()' </td>"
+            // retorno += "</tr>"
+            $("#tabela").html(retorno);
+        })
+        .fail(function () {
+            alert("Erro ao tabelar")
+        })
+
+
 }
+function mostrarTabela() {
+    preenchertabela()
+    $("#btn-gerarTabela").attr("onclick","esconderTabela()")
+    
+}
+function esconderTabela() {
+    $("#tabela").toggle();
+}
+function sair(){
+    window.location.replace("http://localhost/Jhon/desafio.html");
+}
+
+
