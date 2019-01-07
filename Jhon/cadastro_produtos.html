@@ -9,11 +9,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <style>
-        .jumbotron{
-            width:40%;
-        }
-    </style>
+
 </head>
 
 <!-- Head -->
@@ -69,16 +65,16 @@
 
                     <label>Selecione a categoria</label><br>
 
-                    <input type="checkbox" id="fitness" value="fitness">
+                    <input type="checkbox" id="fitness" value="fitness" disabled>
                     <label for="fitness">Fitness </label>
 
-                    <input type="checkbox" id="Cama_mesa_e_banho" value="Cama mesa e banho">
+                    <input type="checkbox" id="Cama_mesa_e_banho" value="Cama mesa e banho" disabled>
                     <label for="Cama_mesa_e_banho">Cama mesa e banho </label>
 
-                    <input type="checkbox" id="informatica" value="informatica">
+                    <input type="checkbox" id="informatica" value="informatica" disabled>
                     <label for="informatica">Informatica </label>
 
-                    <input type="checkbox" id="esportes" value="esportes">
+                    <input type="checkbox" id="esportes" value="esportes" disabled>
                     <label for="esportes">Esportes </label>
 
 
@@ -117,10 +113,24 @@
 
 <script>
     $(document).ready(function () {
+
+        //Função que habilita/desabilita checkboxs
+        $("#nome_produto").keyup(function () {
+            if($("#nome_produto").val() != ""){
+            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled',false)
+        }else{
+            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled',true)
+            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').prop('checked',false)
+            $("#botao_cadastrar_produto").attr('disabled', true);
+            
+        }
+        });
+
         //Função para validar apenas 1 checkbox e coletar o tipo de cadastro selecionado pelo usuario ======================================================
         $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").click(function () {
 
             tipo_checkbox = "cadastro_produto"
+
             if ($("#fitness").prop("checked") == true) {
                 $("#Cama_mesa_e_banho").attr('disabled', true);
                 $("#informatica").attr('disabled', true);
@@ -158,6 +168,7 @@
                         }
 
         });
+
 
 
     });

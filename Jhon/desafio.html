@@ -57,24 +57,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 
     <script>
-
         $(document).ready(function () {
-
             //Função de login ===========================================================================
             $("#botao_logar").click(function () {
                 logar();
             });
             //===========================================================================================
             
-
             //Valida formato CPF e CNPJ =====================================================================================
             $("#cpf_mod_cliente").mask('000.000.000-00');
             $('#cnpj_mod_fornecedor').mask('00.000.000/0000-00');
             // ==========================================================================================================
-
            
-
-
         });
     </script>
 </body>
@@ -111,7 +105,6 @@
 <script>
     //Função para validar apenas 1 checkbox e coletar o tipo de cadastro selecionado pelo usuario ======================================================
     $("#cliente_checkbox, #fornecedor_checkbox").click(function () {
-
         if ($("#cliente_checkbox").prop("checked") == true) {
             $("#fornecedor_checkbox").attr('disabled', true);
             tipo_checkbox = $("#cliente_checkbox").val();
@@ -125,7 +118,6 @@
                 $("#cliente_checkbox, #fornecedor_checkbox").attr('disabled', false);
                 $("#botao_cadastrar_mod").attr('disabled', true);
             }
-
     });
 </script>
 <!-- ==================================================================================================================== -->
@@ -170,20 +162,17 @@
     </div>
 </div>
 <script>
-    // Função habilita e desabilita botão de concluir cadastro de usuario =================================
+    // Função habilita e desabilita botão de concluir cadastro de cliente =================================
     $("#modal_cadastro_cliente :input").keyup(function () {
-
         var usuario_val = $("#nome_mod_cliente").val();
         var senha_val = $("#senha_mod_cliente").val();
         var cpf_val = $("#cpf_mod_cliente").val();
-
-        if (usuario_val != "" && senha_val != "" && cpf_val != "") {
+        if (usuario_val != "" && senha_val != "" && cpf_val.length == 14) {
             $("#botao_cadastrar_cliente").prop('disabled', false);
         } else {
             $("#botao_cadastrar_cliente").prop('disabled', true);
         }
     })
-
 </script>
 <!-- ==================================================================================================================== -->
 
@@ -226,18 +215,15 @@
 <script>
     // Função habilita e desabilita botão de concluir cadastro de fornecedor =================================
     $("#nome_mod_fornecedor, #senha_mod_fornecedor, #cnpj_mod_fornecedor").keyup(function () {
-
         var usuario_val = $("#nome_mod_fornecedor").val();
         var senha_val = $("#senha_mod_fornecedor").val();
         var cnpj_val = $("#cnpj_mod_fornecedor").val();
-
-        if (usuario_val != "" && senha_val != "" && cnpj_val != "") {
+        if (usuario_val != "" && senha_val != "" && cnpj_val.length == 18) {
             $("#botao_cadastrar_fornecedor").prop('disabled', false);
         } else {
             $("#botao_cadastrar_fornecedor").prop('disabled', true);
         }
     })
-
 </script>
 <!-- ==================================================================================================================== -->
 

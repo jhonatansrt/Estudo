@@ -121,7 +121,12 @@ function cadastro_produto() {
     })
         .done(function () {
             alert("Produto cadastrado")
+            $("#nome_produto").val("");
+            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled',true)
+            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').prop('checked',false)
+            $("#btn-gerarTabela").attr("onclick","esconderTabela()")
             $("#modal_cadastro_produtos").modal('hide')
+            
 
             preenchertabela();
         })
@@ -177,5 +182,4 @@ function esconderTabela() {
 function sair(){
     window.location.replace("http://localhost/Jhon/desafio.html");
 }
-
 

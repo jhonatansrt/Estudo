@@ -1,7 +1,6 @@
 <?php
 require "conect_desafio.php";
 extract($_POST);
-
 if ($funcao == "logar") {
     logar();
 }
@@ -24,24 +23,20 @@ if ($funcao == 'preenchertabela'){
     preenchertabela();
 }
 // ========================================================================================================================
-
-
 function logar()
 {
     require "conect_desafio.php";
     extract($_POST);
-
     $sql_get = $pdo->prepare("select * from usuarios where nome = '{$nome}' and senha = '{$senha}'");
     $sql_get->execute();
     $resp = $sql_get->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($resp);
-
 }
-
 function cadastrar_cliente(){
     require "conect_desafio.php";
     extract($_POST);
 
+    
     $sql_get = $pdo->prepare("insert into usuarios(nome, senha, cpf, tipo) values(:nome, :senha, :cpf, :tipo)");
     $sql_get->execute(array(
         ':nome' => $nome,
@@ -50,11 +45,9 @@ function cadastrar_cliente(){
         ':tipo' =>  $tipo 
     ));
 }
-
 function cadastrar_fornecedor(){
     require "conect_desafio.php";
     extract($_POST);
-
     $sql_get = $pdo->prepare("insert into usuarios(nome, senha, cnpj, tipo) values(:nome, :senha, :cnpj, :tipo)");
     $sql_get->execute(array(
         ':nome' => $nome,
@@ -63,27 +56,21 @@ function cadastrar_fornecedor(){
         ':tipo' => $tipo
     ));
 }
-
 function cadastro_produto(){
     require 'conect_desafio.php';
     extract($_POST);
-
     $sql_get = $pdo->prepare("insert into produtos (nome, categoria) values (:nome, :categoria)");
     $sql_get->execute(array(
         ':nome'=>$nome,
         ':categoria'=>$categoria,
-
     ));
 }
 function preenchertabela(){
     require 'conect_desafio.php';
     extract($_POST);
-
     $sql_get = $pdo->prepare("select * from produtos");
     $sql_get->execute();
     $resp = $sql_get->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($resp);
-
 }
-
 ?>
