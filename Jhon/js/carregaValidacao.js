@@ -44,7 +44,7 @@ $(function () {
 				verificaValidade = false;
 				
 				
-				
+				$("#botao_cadastrar_cliente").prop('disabled', true);
 				input.addClass('invalido');
 				alert('CNPJ ou CPF inválido');
 				$('#modal_cpf_cnpj').modal('show');
