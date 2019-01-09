@@ -90,7 +90,7 @@ function cadastrar_cliente() {
 function cadastrar_fornecedor() {
     var nome = $("#nome_mod_fornecedor").val();
     var senha = $("#senha_mod_fornecedor").val();
-    var cnpj = $("#cnpj_mod_fornecedor").val();
+    var cnpj = $("#cnpj").val();
     var tipo = tipo_checkbox;
 
     $.ajax({
