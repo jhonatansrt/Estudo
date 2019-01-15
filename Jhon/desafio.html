@@ -21,7 +21,7 @@
 
     <!-- Formulario de login ========================================================================================== -->
     <div class="row justify-content-center">
-        <div class="w-25 p-3" id="form-cadastro">
+        <div class="col-md-3 col-sm-6 p-3" id="form-cadastro">
 
             <div class="jumbotron">
                 <div class="form-group">
@@ -38,7 +38,7 @@
                 <!-- <input type="submit" id="botao_cadastrar" class="btn btn-warning" value="Crie sua conta" onclick=""> -->
                 <button type="button" id="botao_cadastrar" class="btn btn-warning" data-toggle="modal" data-target="#modal_cadastro">Crie
                     sua conta</button>
-
+                
             </div>
         </div>
     </div>
@@ -57,6 +57,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
     <script src="js/validaCPF.js"></script>
     <script src="js/carregaValidacao.js"></script>
+    <script src="js/modal.js"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -105,22 +107,27 @@
     </div>
 </div>
 <script>
-    //Função para validar apenas 1 checkbox e coletar o tipo de cadastro selecionado pelo usuario ======================================================
-    $("#cliente_checkbox, #fornecedor_checkbox").click(function () {
-        if ($("#cliente_checkbox").prop("checked") == true) {
-            $("#fornecedor_checkbox").attr('disabled', true);
-            tipo_checkbox = $("#cliente_checkbox").val();
-            $("#botao_cadastrar_mod").attr('disabled', false);
-        } else
-            if ($("#fornecedor_checkbox").prop("checked") == true) {
-                $("#cliente_checkbox").prop('disabled', true);
-                tipo_checkbox = $("#fornecedor_checkbox").val();
-                $("#botao_cadastrar_mod").attr('disabled', false);
-            } else {
-                $("#cliente_checkbox, #fornecedor_checkbox").attr('disabled', false);
-                $("#botao_cadastrar_mod").attr('disabled', true);
-            }
+   
+    $("#cliente_checkbox").click(function () {
+        $("#fornecedor_checkbox").prop("checked", false)
+        $("#botao_cadastrar_mod").attr('disabled', false);
+        tipo_checkbox = $("#cliente_checkbox").val();
+
+        if ($("#cliente_checkbox").prop("checked") == false && $("#fornecedor_checkbox").prop("checked") == false) {
+            $("#botao_cadastrar_mod").attr('disabled', true);
+        }
     });
+    $("#fornecedor_checkbox").click(function () {
+        $("#cliente_checkbox").prop("checked", false)
+        $("#botao_cadastrar_mod").attr('disabled', false);
+        tipo_checkbox = $("#fornecedor_checkbox").val();
+
+        if ($("#cliente_checkbox").prop("checked") == false && $("#fornecedor_checkbox").prop("checked") == false) {
+            $("#botao_cadastrar_mod").attr('disabled', true);
+        }
+    });
+
+
 </script>
 <!-- ==================================================================================================================== -->
 
@@ -132,13 +139,13 @@
 <div class="modal" tabindex="-1" role="dialog" id="modal_cadastro_cliente">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" id="title_mod">
                 <h5 class="modal-title">Cadastro de cliente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="retornar">
 
                 <div class="form-group">
                     <label for="nome_mod_cliente">Nome</label>
@@ -147,12 +154,12 @@
 
                 <div class="form-group">
                     <label for="cpf_mod_cliente">CPF</label>
-                    <input type="text" id="cpf_mod_cliente" class="form-control cpf_cnpj">
+                    <input type="text" id="cpf_mod_cliente" class="form-control cpf_cnpj" value="0317179020">
                 </div>
 
                 <div class="form-group">
                     <label for="senha_mod_cliente">Senha</label>
-                    <input type="password" id="senha_mod_cliente" class="form-control">
+                    <input type="password" id="senha_mod_cliente" class="form-control" disabled>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -163,17 +170,30 @@
         </div>
     </div>
 </div>
+
 <script>
     // Função habilita e desabilita botão de concluir cadastro de cliente =================================
     $("#modal_cadastro_cliente :input").keyup(function () {
         var usuario_val = $("#nome_mod_cliente").val();
         var senha_val = $("#senha_mod_cliente").val();
         var cpf_val = $("#cpf_mod_cliente").val();
-        
-        if (usuario_val != "" && senha_val != "" && cpf_val.length == 14 && verificaValidade == true) {
-            $("#botao_cadastrar_cliente").prop('disabled', false);
+        if (cpf_val.length == 14 && usuario_val != "") {
+
+            $("#senha_mod_cliente").prop('disabled', false)
         } else {
-            $("#botao_cadastrar_cliente").prop('disabled', true);
+            $("#senha_mod_cliente").prop('disabled', true)
+            $("#senha_mod_cliente").val('')
+            
+
+        }
+
+        if (verificaValidade == true) {
+
+            if (usuario_val != "" && senha_val != "" && cpf_val.length == 14) {
+                $("#botao_cadastrar_cliente").prop('disabled', false);
+            } else {
+                $("#botao_cadastrar_cliente").prop('disabled', true);
+            }
         }
     })
 </script>
@@ -203,7 +223,7 @@
 
                 <div class="form-group">
                     <label for="senha_mod_fornecedor">Senha</label>
-                    <input type="password" id="senha_mod_fornecedor" class="form-control">
+                    <input type="password" id="senha_mod_fornecedor" class="form-control" disabled>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -221,10 +241,22 @@
         var usuario_val = $("#nome_mod_fornecedor").val();
         var senha_val = $("#senha_mod_fornecedor").val();
         var cnpj_val = $("#cnpj").val();
-        if (usuario_val != "" && senha_val != "" && cnpj_val.length == 18) {
-            $("#botao_cadastrar_fornecedor").prop('disabled', false);
+        if (cnpj_val.length == 18 && usuario_val != "") {
+
+            $("#senha_mod_fornecedor").prop('disabled', false)
         } else {
-            $("#botao_cadastrar_fornecedor").prop('disabled', true);
+            $("#senha_mod_fornecedor").prop('disabled', true)
+            $("#senha_mod_fornecedor").val('')
+            $("#senha_mod_cliente").val('')
+
+        }
+        if (verificaValidade == true) {
+
+            if (usuario_val != "" && senha_val != "" && cnpj_val.length == 18) {
+                $("#botao_cadastrar_fornecedor").prop('disabled', false);
+            } else {
+                $("#botao_cadastrar_fornecedor").prop('disabled', true);
+            }
         }
     })
 </script>

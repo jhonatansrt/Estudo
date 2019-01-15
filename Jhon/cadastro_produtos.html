@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Fornecedor</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,6 +61,10 @@
                         <label for="nome_produto">Nome do produto</label>
                         <input type="text" id="nome_produto" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="nome_produto">Preço</label>
+                        <input type="text" id="preco_produto" class="form-control">
+                    </div>
 
 
                     <label>Selecione a categoria</label><br>
@@ -114,64 +118,88 @@
 <script>
     $(document).ready(function () {
 
+        $("#preco_produto").mask('#.##0,00', {reverse: true});
+        
+
         //Função que habilita/desabilita checkboxs
-        $("#nome_produto").keyup(function () {
-            if($("#nome_produto").val() != ""){
-            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled',false)
-        }else{
-            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled',true)
-            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').prop('checked',false)
-            $("#botao_cadastrar_produto").attr('disabled', true);
-            
-        }
+        $("#nome_produto, #preco_produto").keyup(function () {
+            if ($("#nome_produto").val() != ""  && $("#preco_produto").val() != "") {
+                $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled', false)
+            } else {
+                $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled', true)
+                $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').prop('checked', false)
+                $("#botao_cadastrar_produto").attr('disabled', true);
+
+            }
         });
 
         //Função para validar apenas 1 checkbox e coletar o tipo de cadastro selecionado pelo usuario ======================================================
-        $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").click(function () {
 
-            tipo_checkbox = "cadastro_produto"
-
-            if ($("#fitness").prop("checked") == true) {
-                $("#Cama_mesa_e_banho").attr('disabled', true);
-                $("#informatica").attr('disabled', true);
-                $("#esportes").attr('disabled', true);
+            $("#fitness").click(function () {
+                tipo_checkbox = "cadastro_produto";
+                $("#Cama_mesa_e_banho").prop("checked", false)
+                $("#informatica").prop("checked", false)
+                $("#esportes").prop("checked", false)
                 categoria_produto = $("#fitness").val();
                 $("#botao_cadastrar_produto").attr('disabled', false);
-            } else
-                if ($("#Cama_mesa_e_banho").prop("checked") == true) {
-                    $("#fitness").prop('disabled', true);
-                    $("#informatica").prop('disabled', true);
-                    $("#esportes").prop('disabled', true);
-                    categoria_produto = $("#Cama_mesa_e_banho").val();
-                    $("#botao_cadastrar_produto").attr('disabled', false);
-
-                } else
-                    if ($("#informatica").prop("checked") == true) {
-                        $("#fitness").prop('disabled', true);
-                        $("#Cama_mesa_e_banho").prop('disabled', true);
-                        $("#esportes").prop('disabled', true);
-                        categoria_produto = $("#informatica").val();
-                        $("#botao_cadastrar_produto").attr('disabled', false);
-                    } else
-                        if ($("#esportes").prop("checked") == true) {
-                            $("#fitness").prop('disabled', true);
-                            $("#Cama_mesa_e_banho").prop('disabled', true);
-                            $("#informatica").prop('disabled', true);
-                            categoria_produto = $("#esportes").val();
-                            $("#botao_cadastrar_produto").attr('disabled', false);
-                        }
 
 
-                        else {
-                            $("#fitness, #Cama_mesa_e_banho, #informatica, #esportes").attr('disabled', false);
-                            $("#botao_cadastrar_produto").attr('disabled', true);
-                        }
+                if ($("#fitness").prop("checked") == false && $("#Cama_mesa_e_banho").prop("checked") == false &&
+                    $("#informatica").prop("checked") == false && $("#esportes").prop("checked") == false) {
+                    $("#botao_cadastrar_mod").attr('disabled', true);
+                }
+            });
 
-        });
+            $("#Cama_mesa_e_banho").click(function () {
+                tipo_checkbox = "cadastro_produto";
+                $("#fitness").prop("checked", false)
+                $("#informatica").prop("checked", false)
+                $("#esportes").prop("checked", false)
+                categoria_produto = $("#Cama_mesa_e_banho").val();
+                $("#botao_cadastrar_produto").attr('disabled', false);
+
+
+                if ($("#fitness").prop("checked") == false && $("#Cama_mesa_e_banho").prop("checked") == false &&
+                    $("#informatica").prop("checked") == false && $("#esportes").prop("checked") == false) {
+                    $("#botao_cadastrar_mod").attr('disabled', true);
+                }
+            });
+
+            $("#informatica").click(function () {
+                tipo_checkbox = "cadastro_produto";
+                $("#fitness").prop("checked", false)
+                $("#Cama_mesa_e_banho").prop("checked", false)
+                $("#esportes").prop("checked", false)
+                categoria_produto = $("#informatica").val();
+                $("#botao_cadastrar_produto").attr('disabled', false);
+
+
+                if ($("#fitness").prop("checked") == false && $("#Cama_mesa_e_banho").prop("checked") == false &&
+                    $("#informatica").prop("checked") == false && $("#esportes").prop("checked") == false) {
+                    $("#botao_cadastrar_mod").attr('disabled', true);
+                }
+            });
+
+            $("#esportes").click(function () {
+                tipo_checkbox = "cadastro_produto";
+                $("#fitness").prop("checked", false)
+                $("#Cama_mesa_e_banho").prop("checked", false)
+                $("#informatica").prop("checked", false)
+                categoria_produto = $("#esportes").val();
+                $("#botao_cadastrar_produto").attr('disabled', false);
+
+
+                if ($("#fitness").prop("checked") == false && $("#Cama_mesa_e_banho").prop("checked") == false &&
+                    $("#informatica").prop("checked") == false && $("#esportes").prop("checked") == false) {
+                    $("#botao_cadastrar_mod").attr('disabled', true);
+                }
+                
+
+            });
 
 
 
-    });
+         });
 
 </script>
 

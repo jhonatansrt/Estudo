@@ -26,6 +26,9 @@ function logar() {
                     if (resp[i].tipo == 'fornecedor') {
                         window.location.replace("http://localhost/Jhon/cadastro_produtos.html");
 
+                    }else
+                    if(resp[i].tipo == 'cliente') {
+                        window.location.replace("http://localhost/Jhon/venda_produtos.html");
                     }
                 }
             }
@@ -64,21 +67,28 @@ function tipoCad() {
 
 
 function cadastrar_cliente() {
+    
     var nome = $("#nome_mod_cliente").val();
     var senha = $("#senha_mod_cliente").val();
     var cpf = $("#cpf_mod_cliente").val();
     var tipo = tipo_checkbox;
+    var cnpj = '99.999.999/9999-99';
 
     $.ajax({
         url: pagina,
         type: "POST",
-        data: { funcao: 'cadastrar_cliente', nome, senha, cpf, tipo }
+        data: { funcao: 'cadastrar_cliente', nome, senha, cpf, cnpj, tipo }
 
     })
-        .done(function () {
+    .done(function () {
+
+        alert("Cliente cadastrado");
+        
             $("#modal_cadastro_cliente").modal('hide');
             $("#modal_cadastro").modal('hide');
-            alert("Cliente cadastrado");
+            console.log("cadastro cliente função chamada");
+            console.log(nome+" "+senha+" "+cpf+" "+tipo+" "+cnpj);
+
 
         })
         .fail(function () {
@@ -112,21 +122,23 @@ function cadastrar_fornecedor() {
 
 function cadastro_produto() {
     var nome = $("#nome_produto").val();
+    var preco =  $("#preco_produto").val();
     var categoria = categoria_produto;
 
     $.ajax({
         url: pagina,
         type: "POST",
-        data: { funcao: 'cadastro_produto', nome, categoria }
+        data: { funcao: 'cadastro_produto', nome, categoria, preco }
     })
         .done(function () {
             alert("Produto cadastrado")
             $("#nome_produto").val("");
-            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled',true)
-            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').prop('checked',false)
-            $("#btn-gerarTabela").attr("onclick","esconderTabela()")
+            $("#preco_produto").val("");
+            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').attr('disabled', true)
+            $('#fitness, #Cama_mesa_e_banho, #informatica, #esportes').prop('checked', false)
+            $("#btn-gerarTabela").attr("onclick", "esconderTabela()")
             $("#modal_cadastro_produtos").modal('hide')
-            
+
 
             preenchertabela();
         })
@@ -149,6 +161,7 @@ function preenchertabela() {
             retorno += "<th>Id</th>"
             retorno += "<th>Nome</th>"
             retorno += "<th>Categoria</th>"
+            retorno += "<th>Preço</th>"
             retorno += "</thead>"
 
 
@@ -158,6 +171,7 @@ function preenchertabela() {
                 retorno += "<td>" + resp[i].id + "</td>"
                 retorno += "<td>" + resp[i].nome + "</td>"
                 retorno += "<td>" + resp[i].categoria + "</td>"
+                retorno += "<td>" + resp[i].preco + "</td>"
                 retorno += "</tr>"
             }
             // retorno += "<tr>"
@@ -173,13 +187,24 @@ function preenchertabela() {
 }
 function mostrarTabela() {
     preenchertabela()
-    $("#btn-gerarTabela").attr("onclick","esconderTabela()")
-    
+    $("#btn-gerarTabela").attr("onclick", "esconderTabela()")
+
 }
 function esconderTabela() {
     $("#tabela").toggle();
 }
-function sair(){
+function sair() {
     window.location.replace("http://localhost/Jhon/desafio.html");
+}
+function opcoesProdutos(){
+    $.ajax({
+        url: pagina,
+        type: "POST",
+        data: { funcao: 'preenchertabela' },
+        dataType: 'json'
+    })
+    .done(function(resp){
+
+    })
 }
 

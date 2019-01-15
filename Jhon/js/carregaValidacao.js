@@ -35,16 +35,16 @@ $(function () {
 
 				input.addClass('valido');
 				
-				verificaValidade = true;
-				
-
-
+				verificaValidade = true;	
 
 			} else if ($('#cpf_mod_cliente').val().length == 14 || $('#cnpj').val().length == 18) {
 				verificaValidade = false;
 				
 				
 				$("#botao_cadastrar_cliente").prop('disabled', true);
+				$("#botao_cadastrar_fornecedor").prop('disabled', true);
+				$("#senha_mod_cliente").prop('disabled', true)
+				$("#senha_mod_fornecedor").prop('disabled', true)
 				input.addClass('invalido');
 				alert('CNPJ ou CPF inválido');
 				$('#modal_cpf_cnpj').modal('show');
